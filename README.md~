@@ -63,5 +63,6 @@ On you virtual machine:
 > ssh -i \[privateKey\] grader@52.24.125.52
 
 ## Update all currently installed packages
-1. sudo apt-get update
-2. sudo apt-get upgrade
+
+sudo apt-get update
+sudo apt-get upgrade
