@@ -21,12 +21,12 @@ In this project, a Linux virtual machine needs to be configurated to support the
 ## Launch Virtual Machine
 ### Instructions for SSH access to the instance
 1. Download Private Key below
-2. Move the private key file into the folder ~/.ssh (where ~ is your environment's home directory). So if you downloaded the file to the Downloads folder, just execute the following command in your terminal.
+2. Move the private key file into the folder `~/.ssh` (where ~ is your environment's home directory). So if you downloaded the file to the Downloads folder, just execute the following command in your terminal.
 	```mv ~/Downloads/udacity_key.rsa ~/.ssh/```
 3. Open your terminal and type in
 	```chmod 600 ~/.ssh/udacity_key.rsa```
 4. In your terminal, type in
-	```ssh -i ~/.ssh/udacity_key.rsa root@52.24.125.52'''
+	```ssh -i ~/.ssh/udacity_key.rsa root@52.24.125.52```
 5. Development Environment Information
 
 	Public IP Address
@@ -36,32 +36,35 @@ In this project, a Linux virtual machine needs to be configurated to support the
 	Private Key ( is not provided here. )
 
 ## Create a new user named grader
-1. sudo adduser grader
-2. vim /etc/sudoers
-3. Remove the `#` in the last line before `includedir /etc/sudoers.d` in sudoers.
-4. touch /etc/sudoers.d/grader
-5. `vim /etc/sudoers.d/grader`, type in `grader ALL=(ALL:ALL) ALL`, save and quit
+1. `sudo adduser grader`
+2. `vim /etc/sudoers`
+3. `touch /etc/sudoers.d/grader`
+4. `vim /etc/sudoers.d/grader`, type in `grader ALL=(ALL:ALL) ALL`, save and quit
 
 ## Set ssh login using keys
-### generate keys on local machine
-1. ssh-keygen
-save the private key in ~/.ssh on local machine
+1. generate keys on local machine using`ssh-keygen` ; then save the private key in `~/.ssh` on local machine
+2. deploy public key on developement enviroment
 
-### deploy public key on developement enviroment
 On you virtual machine:
-1. su - grader
-2. mkdir .ssh
-3. touch .ssh/authorized_keys
-4. vim .ssh/authorized_keys and copy the public key generated on your local machine to this file and save
-5. chmod 700 .ssh
-6. chmod 644 .ssh/authorized_keys
+```
+$ su - grader
+$ mkdir .ssh
+$ touch .ssh/authorized_keys
+$ vim .ssh/authorized_keys
+```
+copy the public key generated on your local machine to this file and save
+```
+$ chmod 700 .ssh
+$ chmod 644 .ssh/authorized_keys
+```
 
-### reload SSH
-1. service ssh restart
+3. reload SSH using `service ssh restart`
+4. now you can use ssh to login with the new user you created
 
-### now you can use ssh to login with the new user you created
-> ssh -i \[privateKey\] grader@52.24.125.52
+`ssh -i \[privateKey\] grader@52.24.125.52`
 
 ## Update all currently installed packages
-1. sudo apt-get update
-2. sudo apt-get upgrade
+```
+$ sudo apt-get update
+$ sudo apt-get upgrade
+```
