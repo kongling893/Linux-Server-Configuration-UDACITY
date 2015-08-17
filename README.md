@@ -96,13 +96,18 @@ In this project, a Linux virtual machine needs to be configurated to support the
 	```
 	# Install Apache
 	$ sudo apt-get install apache2
-	#Install mod_wsgi
-	$ apt-get install python-setuptools libapache2-mod-wsgi
+	# Install mod_wsgi
+	$ sudo apt-get install python-setuptools libapache2-mod-wsgi
 	# Restart Apache
 	$ sudo service apache2 restart
 	```
 
-Install Apache sudo apt-get install apache2
-Install mod_wsgi sudo apt-get install python-setuptools libapache2-mod-wsgi
-Restart Apache sudo service apache2 restart
+## Install and configure PostgreSQL
+
+	```shell
+	#Install PostgreSQL
+	sudo apt-get install postgresql
+	#Check if no remote connections are allowed:
+	sudo vim /etc/postgresql/9.3/main/pg_hba.conf
+	```
 
