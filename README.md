@@ -45,26 +45,64 @@ In this project, a Linux virtual machine needs to be configurated to support the
 1. generate keys on local machine using`ssh-keygen` ; then save the private key in `~/.ssh` on local machine
 2. deploy public key on developement enviroment
 
-On you virtual machine:
-```
-$ su - grader
-$ mkdir .ssh
-$ touch .ssh/authorized_keys
-$ vim .ssh/authorized_keys
-```
-copy the public key generated on your local machine to this file and save
-```
-$ chmod 700 .ssh
-$ chmod 644 .ssh/authorized_keys
-```
-
+	On you virtual machine:
+	```
+	$ su - grader
+	$ mkdir .ssh
+	$ touch .ssh/authorized_keys
+	$ vim .ssh/authorized_keys
+	# Copy the public key generated on your local machine to this file and save
+	$ chmod 700 .ssh
+	$ chmod 644 .ssh/authorized_keys
+	```
+	
 3. reload SSH using `service ssh restart`
 4. now you can use ssh to login with the new user you created
 
-`ssh -i \[privateKey\] grader@52.24.125.52`
+	`ssh -i \[privateKey\] grader@52.24.125.52`
 
 ## Update all currently installed packages
-```
-$ sudo apt-get update
-$ sudo apt-get upgrade
-```
+
+	```
+	$ sudo apt-get update
+	$ sudo apt-get upgrade
+	```
+
+## Change the SSH port from 22 to 2200
+
+	```
+	$ sudo vim /etc/ssh/sshd_config
+	# change Port 22 to Port 2200 , save & quit
+	# reload SSH
+	$ sudo service ssh restart
+	```
+## Configure the Uncomplicated Firewall (UFW)
+
+	```
+	# Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
+	$ sudo ufw allow 2200/tcp
+	$ sudo ufw allow 80/tcp
+	$ sudo ufw allow 123/udp
+	$ sudo ufw enable 
+	```
+## Configure the local timezone to UTC
+
+	```
+	```
+
+## Install and configure Apache to serve a Python mod_wsgi application
+
+
+	```
+	# Install Apache
+	$ sudo apt-get install apache2
+	#Install mod_wsgi
+	$ apt-get install python-setuptools libapache2-mod-wsgi
+	# Restart Apache
+	$ sudo service apache2 restart
+	```
+
+Install Apache sudo apt-get install apache2
+Install mod_wsgi sudo apt-get install python-setuptools libapache2-mod-wsgi
+Restart Apache sudo service apache2 restart
+
