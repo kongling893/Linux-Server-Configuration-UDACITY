@@ -19,7 +19,8 @@ In this project, a Linux virtual machine needs to be configurated to support the
 11. Install git, clone and setup your Catalog App project (from your GitHub repository from earlier in the Nanodegree program) so that it functions correctly when visiting your server’s IP address in a browser. Remember to set this up appropriately so that your .git directory is not publicly accessible via a browser!
 
 ## Launch Virtual Machine
-### Instructions for SSH access to the instance
+
+## Instructions for SSH access to the instance
 1. Download Private Key below
 2. Move the private key file into the folder `~/.ssh` (where ~ is your environment's home directory). So if you downloaded the file to the Downloads folder, just execute the following command in your terminal.
 	```mv ~/Downloads/udacity_key.rsa ~/.ssh/```
@@ -51,7 +52,9 @@ In this project, a Linux virtual machine needs to be configurated to support the
 	$ mkdir .ssh
 	$ touch .ssh/authorized_keys
 	$ vim .ssh/authorized_keys
-	# Copy the public key generated on your local machine to this file and save
+	```
+	Copy the public key generated on your local machine to this file and save
+	```
 	$ chmod 700 .ssh
 	$ chmod 644 .ssh/authorized_keys
 	```
@@ -69,21 +72,17 @@ In this project, a Linux virtual machine needs to be configurated to support the
 	```
 
 ## Change the SSH port from 22 to 2200
+1. Use `sudo vim /etc/ssh/sshd_config` and then change Port 22 to Port 2200 , save & quit.
+2. Reload SSH using `sudo service ssh restart`
 
-	```
-	$ sudo vim /etc/ssh/sshd_config
-	# change Port 22 to Port 2200 , save & quit
-	# reload SSH
-	$ sudo service ssh restart
-	```
 ## Configure the Uncomplicated Firewall (UFW)
 
+	Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
 	```
-	# Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
-	$ sudo ufw allow 2200/tcp
-	$ sudo ufw allow 80/tcp
-	$ sudo ufw allow 123/udp
-	$ sudo ufw enable 
+	sudo ufw allow 2200/tcp
+	sudo ufw allow 80/tcp
+	sudo ufw allow 123/udp
+	sudo ufw enable 
 	```
 ## Configure the local timezone to UTC
 
@@ -91,52 +90,47 @@ In this project, a Linux virtual machine needs to be configurated to support the
 	```
 
 ## Install and configure Apache to serve a Python mod_wsgi application
-
-
-	```
-	# Install Apache
-	$ sudo apt-get install apache2
-	# Install mod_wsgi
-	$ sudo apt-get install python-setuptools libapache2-mod-wsgi
-	# Restart Apache
-	$ sudo service apache2 restart
-	```
+1. Install Apache `sudo apt-get install apache2`
+2. Install mod_wsgi `sudo apt-get install python-setuptools libapache2-mod-wsgi`
+3. Restart Apache `sudo service apache2 restart`
 
 ## Install and configure PostgreSQL
-
+1. Install PostgreSQL `sudo apt-get install postgresql`
+2. Check if no remote connections are allowed `sudo vim /etc/postgresql/9.3/main/pg_hba.conf`
+3. Login as user "postgres" `sudo su - postgres`
+4. Get into postgreSQL shell `psql`
+5. Create a new database named catalog  and create a new user named catalog in postgreSQL shell
 	```
-	# Install PostgreSQL
-	$ sudo apt-get install postgresql
-	# Check if no remote connections are allowed
-	$ sudo vim /etc/postgresql/9.3/main/pg_hba.conf
-	# Login as user "postgres"
-	$ sudo su - postgres
-	# Get into postgreSQL database
-	$ psql
-	# Create a new database named "catalog" 
 	postgres=# CREATE DATABASE catalog;
-	# Create a new user named "catalog" 
 	postgres=# CREATE USER catalog;
-	# Give user "catalog" permission to "catalog" application database
+	```
+5. Set a password for user catalog
+	```
+	postgres=# ALTER ROLE catalog WITH PASSWORD 'password';
+	```
+6. Give user "catalog" permission to "catalog" application database
+	```
 	postgres=# GRANT ALL PRIVILEGES ON DATABASE catalog TO catalog;
 	```
-
+7. Quit postgreSQL `postgres=# \q`
+8. Exit from user "postgres" 
+	```
+	exit
+	```
+ 
 ## Install git, clone and setup your Catalog App project.
-
-	```
-	# Install PostgreSQL
-	$ sudo apt-get install postgresql
-	# Check if no remote connections are allowed
-	$ sudo vim /etc/postgresql/9.3/main/pg_hba.conf
-	# Login as user "postgres"
-	$ sudo su - postgres
-	# Get into postgreSQL database
-	$ psql
-	# Create a new database named "catalog" 
-	postgres=# CREATE DATABASE catalog;
-	# Create a new user named "catalog" 
-	postgres=# CREATE USER catalog;
-	# Give user "catalog" permission to "catalog" application database
-	postgres=# GRANT ALL PRIVILEGES ON DATABASE catalog TO catalog;
-	```
+In this step, we will create a flask app. We will place our app in the /var/www directory.
+1. Install Git using `sudo apt-get install git`
+2. Use `cd /var/www` to move to the /var/www directory 
+3. Create the application directory `sudo mkdir FlaskApp`
+4. Move inside this directory using `cd FlaskApp`
+5. Clone the Catalog App to the virtual machine `git clone https://github.com/kongling893/Item_Catalog_UDACITY.git`
+6. Rename the project's name `sudo mv ./Item_Catalog_UDACITY ./FlaskApp`
+7. Move to the inner FlaskApp directory using `cd FlaskApp`
+8. Rename `website.py` to `__init__.py` using `sudo mv website.py __init__.py`
+9. Edit `database_setup.py`, `website.py` and `functions_helper.py` and change `engine = create_engine('sqlite:///toyshop.db')` to `engine = create_engine('postgresql://catalog:password@localhost/catalog')`
+10. Install pip `sudo apt-get install python-pip`
+11. Use pip to install dependencies `sudo pip install -r requirements.txt`
+12. Install psycopg2 `sudo apt-get -qqy install postgresql python-psycopg2`
+13. Create database schema `sudo python database_setup.py`
 
