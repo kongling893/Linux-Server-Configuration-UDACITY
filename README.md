@@ -22,7 +22,7 @@ You can visit http://52.24.125.52 for the website deployed.
 
 ## Launch Virtual Machine
 
-## Instructions for SSH access to the instance
+## Launch Virtual Machine: Instructions for SSH access to the instance
 1. Download Private Key below
 2. Move the private key file into the folder `~/.ssh` (where ~ is your environment's home directory). So if you downloaded the file to the Downloads folder, just execute the following command in your terminal.
 	```mv ~/Downloads/udacity_key.rsa ~/.ssh/```
@@ -64,7 +64,7 @@ You can visit http://52.24.125.52 for the website deployed.
 3. reload SSH using `service ssh restart`
 4. now you can use ssh to login with the new user you created
 
-	`ssh -i \[privateKey\] grader@52.24.125.52`
+	`ssh -i [privateKeyFilename] grader@52.24.125.52`
 
 ## Update all currently installed packages
 
