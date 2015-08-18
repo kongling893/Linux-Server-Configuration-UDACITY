@@ -22,7 +22,7 @@ You can visit http://52.24.125.52 for the website deployed.
 
 ## Launch Virtual Machine
 
-## Launch Virtual Machine: Instructions for SSH access to the instance
+## Instructions for SSH access to the instance
 1. Download Private Key below
 2. Move the private key file into the folder `~/.ssh` (where ~ is your environment's home directory). So if you downloaded the file to the Downloads folder, just execute the following command in your terminal.
 	```mv ~/Downloads/udacity_key.rsa ~/.ssh/```
