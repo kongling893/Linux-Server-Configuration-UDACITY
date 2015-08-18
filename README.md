@@ -3,6 +3,8 @@ This is the fifth project for "Full Stack Web Developer Nanodegree" on Udacity.
 
 In this project, a Linux virtual machine needs to be configurated to support the Item Catalog website.
 
+You can visit [52.24.125.52][52.24.125.52] for the website deployed.
+
 ## Tasks
 1. Launch your Virtual Machine with your Udacity account
 2. Follow the instructions provided to SSH into your server
@@ -181,3 +183,6 @@ Configure the Uncomplicated Firewall (UFW) to only allow incoming connections fo
 
 ## Restart Apache
 1. Restart Apache `sudo service apache2 restart `
+
+## References:
+https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps
