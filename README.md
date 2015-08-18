@@ -104,10 +104,39 @@ In this project, a Linux virtual machine needs to be configurated to support the
 
 ## Install and configure PostgreSQL
 
-	```shell
-	#Install PostgreSQL
-	sudo apt-get install postgresql
-	#Check if no remote connections are allowed:
-	sudo vim /etc/postgresql/9.3/main/pg_hba.conf
+	```
+	# Install PostgreSQL
+	$ sudo apt-get install postgresql
+	# Check if no remote connections are allowed
+	$ sudo vim /etc/postgresql/9.3/main/pg_hba.conf
+	# Login as user "postgres"
+	$ sudo su - postgres
+	# Get into postgreSQL database
+	$ psql
+	# Create a new database named "catalog" 
+	postgres=# CREATE DATABASE catalog;
+	# Create a new user named "catalog" 
+	postgres=# CREATE USER catalog;
+	# Give user "catalog" permission to "catalog" application database
+	postgres=# GRANT ALL PRIVILEGES ON DATABASE catalog TO catalog;
+	```
+
+## Install git, clone and setup your Catalog App project.
+
+	```
+	# Install PostgreSQL
+	$ sudo apt-get install postgresql
+	# Check if no remote connections are allowed
+	$ sudo vim /etc/postgresql/9.3/main/pg_hba.conf
+	# Login as user "postgres"
+	$ sudo su - postgres
+	# Get into postgreSQL database
+	$ psql
+	# Create a new database named "catalog" 
+	postgres=# CREATE DATABASE catalog;
+	# Create a new user named "catalog" 
+	postgres=# CREATE USER catalog;
+	# Give user "catalog" permission to "catalog" application database
+	postgres=# GRANT ALL PRIVILEGES ON DATABASE catalog TO catalog;
 	```
 
