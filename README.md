@@ -137,7 +137,7 @@ Configure the Uncomplicated Firewall (UFW) to only allow incoming connections fo
 ## Configure and Enable a New Virtual Host
 1. Create FlaskApp.conf to edit: `sudo nano /etc/apache2/sites-available/FlaskApp.conf`
 2. Add the following lines of code to the file to configure the virtual host. 
-	
+	```
 	<VirtualHost *:80>
 		ServerName 52.24.125.52
 		ServerAdmin qiaowei8993@gmail.com
@@ -155,15 +155,17 @@ Configure the Uncomplicated Firewall (UFW) to only allow incoming connections fo
 		LogLevel warn
 		CustomLog ${APACHE_LOG_DIR}/access.log combined
 	</VirtualHost>
+	```
 3. Enable the virtual host with the following command: `sudo a2ensite FlaskApp`
 
 ## Create the .wsgi File
 1. Create the .wsgi File under /var/www/FlaskApp: 
-	
+	```
 	cd /var/www/FlaskApp
 	sudo nano flaskapp.wsgi 
+	```
 2. Add the following lines of code to the flaskapp.wsgi file:
-
+	```
 	#!/usr/bin/python
 	import sys
 	import logging
@@ -172,6 +174,7 @@ Configure the Uncomplicated Firewall (UFW) to only allow incoming connections fo
 
 	from FlaskApp import app as application
 	application.secret_key = 'Add your secret key'
+	```
 
 ## Restart Apache
 1. Restart Apache `sudo service apache2 restart `
